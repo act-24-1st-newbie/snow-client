@@ -2,6 +2,15 @@ import { useState } from 'react';
 
 import TextField from '../component/ui/TextField';
 
+const style = {
+  width: '1024px',
+  margin: 'auto',
+  paddingTop: '2rem',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '16px',
+};
+
 export default function Test() {
   const [text, setText] = useState('');
 
@@ -20,7 +29,7 @@ export default function Test() {
   }
 
   return (
-    <>
+    <main className="test-page" style={style}>
       <div style={{ width: '300px' }}>
         <TextField />
       </div>
@@ -33,7 +42,7 @@ export default function Test() {
           onSend={handleSend}
         />
       </div>
-      <div style={{ width: '300px', marginTop: '0.5rem' }}>
+      <div style={{ width: '300px' }}>
         <TextField
           placeholder="Input Here..."
           value={text}
@@ -43,6 +52,6 @@ export default function Test() {
           showBorder
         />
       </div>
-    </>
+    </main>
   );
 }

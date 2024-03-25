@@ -1,0 +1,25 @@
+.login-page { 
+  width: 1024px;
+  margin: auto; 
+}
+
+.welcome {
+  padding: 60px 0 8px 0;
+
+  p {
+    margin: 0;
+
+    font-size: 1.5rem;
+
+    color: #2C3E50;
+  }
+}
+
+.login {
+  width: 100%;
+
+  h1 {
+    margin: 16px 0;
+    font-size: 3rem;
+  }
+}

@@ -20,7 +20,7 @@ function TextField({ value, showBorder, onSend, onChange, ...rest }) {
 
   function handleChange(e) {
     setInnerValue(e.target.value);
-    onChange(e);
+    onChange?.(e);
   }
 
   return (
