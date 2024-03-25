@@ -29,6 +29,7 @@ function TextField({ value, showBorder, onSend, onChange, ...rest }) {
         type="search"
         className={cn('textfield__input', { 'textfield__input--border': showBorder })}
         onChange={handleChange}
+        value={innerValue}
         {...rest}
       />
       <input type="image" className="textfield__send" src={!innerValue ? nor : hov} onClick={onSend} />

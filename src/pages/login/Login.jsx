@@ -1,27 +1,22 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import TextField from '../../component/ui/TextField';
+import useInput from '../../lib/useInput';
 import styles from './Login.module.css';
 
 export default function Login() {
-  const [name, setName] = useState('');
+  const [nameProps] = useInput('', handleSubmit);
   const navigate = useNavigate();
 
-  function handleKeyUp(e) {
-    if (e.key === 'Enter') {
-      handleSubmit();
-    }
-  }
-
   function handleSubmit() {
+    const { value: name } = nameProps;
+
     if (!name) {
       return;
     }
 
-    // save name
     sessionStorage.setItem('name', name);
-    // move to homepage
+
     navigate('/home');
   }
 
@@ -33,7 +28,7 @@ export default function Login() {
       </div>
       <div className={styles['login']}>
         <h1>What is your name?</h1>
-        <TextField value={name} onChange={e => setName(e.target.value)} onKeyUp={handleKeyUp} onSend={handleSubmit} />
+        <TextField {...nameProps} onSend={handleSubmit} />
       </div>
     </main>
   );

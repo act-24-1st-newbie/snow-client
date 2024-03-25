@@ -1,14 +1,24 @@
 import { useState } from 'react';
 
 import TextField from '../../component/ui/TextField';
+import useInput from '../../lib/useInput';
 import EmptyTodo from './EmptyTodo';
 import styles from './Home.module.css';
 
 export default function Home() {
   const name = sessionStorage.getItem('name') ?? 'Anonymous';
 
-  // eslint-disable-next-line
+  const [{ value: todo, ...todoProps }, setTodo] = useInput('', handleSave);
   const [todos, setTodos] = useState([]);
+
+  function handleSave() {
+    if (!todo) {
+      return;
+    }
+
+    setTodos([...todos, todo]);
+    setTodo('');
+  }
 
   return (
     <main className={styles['home-page']}>
@@ -23,12 +33,22 @@ export default function Home() {
             <p>task(s) today!</p>
           </div>
           <div className={styles.top__input}>
-            <TextField />
+            <TextField placeholder="Enter your task" value={todo} {...todoProps} onSend={handleSave} />
           </div>
         </div>
       </section>
       <section className={styles.bottom}>
-        {!todos.length ? <EmptyTodo /> : <div className={styles.container}></div>}
+        {!todos.length ? (
+          <EmptyTodo />
+        ) : (
+          <div className={styles.container}>
+            <ul>
+              {todos.map((item, idx) => (
+                <li key={idx}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </section>
     </main>
   );
