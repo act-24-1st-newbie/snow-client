@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import TextField from '../component/ui/TextField';
+import TextField from '../../component/ui/TextField';
 
 const style = {
   width: '1024px',

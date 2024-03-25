@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import EmptyTodo from '../component/EmptyTodo';
-import TextField from '../component/ui/TextField';
+import TextField from '../../component/ui/TextField';
+import EmptyTodo from './EmptyTodo';
 import styles from './Home.module.css';
 
 export default function Home() {
