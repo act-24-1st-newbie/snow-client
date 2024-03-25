@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Topbar />
-      <main>
+      <main style={{ marginTop: '2rem' }}>
         <Outlet />
       </main>
     </>
