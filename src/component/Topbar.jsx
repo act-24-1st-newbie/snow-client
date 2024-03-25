@@ -16,6 +16,7 @@ function Topbar() {
         </Link>
       </div>
       <div className="topbar__right">
+        <Link to="/test">TO TEST</Link>
         <div className="topbar__date">{format(new Date(), 'MM/dd (EEE)')}</div>
         <button>Sign Up</button>
       </div>

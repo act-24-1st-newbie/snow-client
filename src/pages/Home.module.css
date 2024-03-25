@@ -1,0 +1,30 @@
+.home-page {
+  width: 1024px;
+  margin: auto;
+}
+
+.greeting {
+  margin-top: 24px;
+
+  p {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+}
+
+.info {
+  margin-top: 16px;
+
+  p {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  h1 {
+    margin: 0;
+    font-size: 3rem;
+  }
+}
+
+.input {
+  margin-top: 16px;
+}

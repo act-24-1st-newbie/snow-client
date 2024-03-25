@@ -4,7 +4,7 @@
 }
 
 .welcome {
-  padding: 60px 0 8px 0;
+  margin-top: 60px;
 
   p {
     margin: 0;
@@ -17,6 +17,7 @@
 
 .login {
   width: 100%;
+  margin-top: 24px;
 
   h1 {
     margin: 16px 0;
