@@ -2,7 +2,7 @@
   height: 48px;
   width: 100%;
 
-  background-color: #6C77AC;
+  background-color: #6c77ac;
 
   display: flex;
   flex-direction: row;
@@ -27,7 +27,7 @@
   .topbar__title {
     font-weight: 700;
     font-size: 1.5rem;
-    color: #FFFFFF;
+    color: #ffffff;
   }
 
   .topbar__right {
@@ -43,6 +43,6 @@
 
   .topbar__date {
     font-weight: 700;
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }

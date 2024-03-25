@@ -1,5 +1,6 @@
-import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
+
+import { format } from 'date-fns';
 
 import './Topbar.css';
 import topbarMenu from '/ic_topbar_menu.svg';

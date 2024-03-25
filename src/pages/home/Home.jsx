@@ -1,11 +1,13 @@
-import { format } from 'date-fns';
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-import Checkbox from '../../component/ui/Checkbox';
-import DeleteButton from '../../component/ui/DeleteButton';
-import TextField from '../../component/ui/TextField';
-import useInput from '../../lib/useInput';
+import { format } from 'date-fns';
+import PropTypes from 'prop-types';
+
+import Checkbox from '@/component/ui/Checkbox';
+import DeleteButton from '@/component/ui/DeleteButton';
+import TextField from '@/component/ui/TextField';
+import useInput from '@/lib/useInput';
+
 import EmptyTodo from './EmptyTodo';
 import styles from './Home.module.css';
 

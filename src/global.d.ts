@@ -1,4 +1,4 @@
 interface Todo {
-  content: string,
-  createdAt: number,
+  content: string;
+  createdAt: number;
 }

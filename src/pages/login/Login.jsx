@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router';
 
-import TextField from '../../component/ui/TextField';
-import useInput from '../../lib/useInput';
+import TextField from '@/component/ui/TextField';
+import useInput from '@/lib/useInput';
+
 import styles from './Login.module.css';
 
 export default function Login() {

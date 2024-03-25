@@ -41,7 +41,7 @@
 
 .bottom {
   flex-grow: 1;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
 }
 
 /*************** TODO ITEM ***************/
@@ -67,7 +67,7 @@
 
     border-radius: 4px;
 
-    background-color: #FFFFFF;
+    background-color: #ffffff;
   }
 
   .todo__content {
