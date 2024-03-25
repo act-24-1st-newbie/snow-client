@@ -1,18 +1,28 @@
 .home-page {
+  height: calc(100vh - 48px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.container {
   width: 1024px;
   margin: auto;
 }
 
-.greeting {
-  margin-top: 24px;
+.top {
+  padding: 24px 0;
+}
 
+.top__greeting {
   p {
     margin: 0;
     font-size: 1.5rem;
   }
 }
 
-.info {
+.top__info {
   margin-top: 16px;
 
   p {
@@ -25,6 +35,11 @@
   }
 }
 
-.input {
+.top__input {
   margin-top: 16px;
+}
+
+.bottom {
+  flex-grow: 1;
+  background-color: #F4F4F4;
 }
