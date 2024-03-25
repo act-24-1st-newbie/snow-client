@@ -3,6 +3,9 @@
 :root {
   /* variables */
   --primary-color: #2A82F0;
+  --raw-primary-color: 42 130 240;
+
+
   --font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
   font-family: var(--font-family);

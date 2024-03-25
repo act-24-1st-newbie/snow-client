@@ -1,0 +1,22 @@
+.checkbox {
+  appearance: none;
+  background: url('/ic_checkbox_nor.svg');
+
+  width: 28px;
+  height: 28px;
+  margin: 0;
+
+  &:hover:not(:disabled) {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+  }
+
+  &:checked {
+    background: url('/ic_checkbox_hov.svg');
+
+    &:hover:not(:disabled) {
+      background-color: rgba(var(--raw-primary-color) / 0.1);
+      border-radius: 50%;
+    }
+  }
+}

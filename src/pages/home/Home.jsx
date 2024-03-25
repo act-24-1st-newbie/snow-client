@@ -1,22 +1,49 @@
+import { format } from 'date-fns';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 
+import Checkbox from '../../component/ui/Checkbox';
+import DeleteButton from '../../component/ui/DeleteButton';
 import TextField from '../../component/ui/TextField';
 import useInput from '../../lib/useInput';
 import EmptyTodo from './EmptyTodo';
 import styles from './Home.module.css';
 
+/**
+ * TodoItem Component
+ * @param {Todo} param0
+ */
+function TodoItem({ content, createdAt }) {
+  return (
+    <li className={styles.todo__item}>
+      <Checkbox />
+      <span className={styles.todo__content}>{content}</span>
+      <span>{format(createdAt, 'MM/dd HH:mm')}</span>
+      <DeleteButton />
+    </li>
+  );
+}
+
+TodoItem.propTypes = {
+  content: PropTypes.string,
+  createdAt: PropTypes.number,
+};
+
+/**
+ * Home Page
+ */
 export default function Home() {
   const name = sessionStorage.getItem('name') ?? 'Anonymous';
 
   const [{ value: todo, ...todoProps }, setTodo] = useInput('', handleSave);
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState([{ content: 'aaa', createdAt: new Date().getTime() }]);
 
   function handleSave() {
     if (!todo) {
       return;
     }
 
-    setTodos([...todos, todo]);
+    setTodos([{ content: todo, createdAt: new Date().getTime() }, ...todos]);
     setTodo('');
   }
 
@@ -42,9 +69,9 @@ export default function Home() {
           <EmptyTodo />
         ) : (
           <div className={styles.container}>
-            <ul>
+            <ul className={styles.todo__list}>
               {todos.map((item, idx) => (
-                <li key={idx}>{item}</li>
+                <TodoItem key={idx} {...item} />
               ))}
             </ul>
           </div>
