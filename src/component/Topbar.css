@@ -1,0 +1,48 @@
+.topbar {
+  height: 48px;
+  width: 100%;
+
+  background-color: #6C77AC;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .topbar__left {
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+
+    margin-left: 16px;
+  }
+
+  .topbar__menu {
+    width: 24px;
+    height: 24px;
+  }
+
+  .topbar__title {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #FFFFFF;
+  }
+
+  .topbar__right {
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+
+    margin-right: 16px;
+  }
+
+  .topbar__date {
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+}
