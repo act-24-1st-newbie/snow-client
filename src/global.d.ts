@@ -1,4 +1,7 @@
 interface Todo {
+  id: number;
   content: string;
-  createdAt: number;
+  isDone: boolean;
+  createdDate: number;
+  modifiedDate: number;
 }

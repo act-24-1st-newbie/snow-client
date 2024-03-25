@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import cn from 'classnames';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 
@@ -13,22 +14,23 @@ import styles from './Home.module.css';
 
 /**
  * TodoItem Component
- * @param {Todo} param0
+ * @param {{item: Todo, onDoneChange: Function}} param0
  */
-function TodoItem({ content, createdAt }) {
+function TodoItem({ item, onDoneChange }) {
+  const { content, isDone, createdDate } = item;
   return (
     <li className={styles.todo__item}>
-      <Checkbox />
-      <span className={styles.todo__content}>{content}</span>
-      <span>{format(createdAt, 'MM/dd HH:mm')}</span>
+      <Checkbox value={isDone} onChange={onDoneChange} />
+      <span className={cn(styles.todo__content, { [styles['todo__content--done']]: isDone })}>{content}</span>
+      <span>{format(createdDate, 'MM/dd HH:mm')}</span>
       <DeleteButton />
     </li>
   );
 }
 
 TodoItem.propTypes = {
-  content: PropTypes.string,
-  createdAt: PropTypes.number,
+  item: PropTypes.object,
+  onDoneChange: PropTypes.func,
 };
 
 /**
@@ -38,7 +40,18 @@ export default function Home() {
   const name = sessionStorage.getItem('name') ?? 'Anonymous';
 
   const [{ value: todo, ...todoProps }, setTodo] = useInput('', handleSave);
-  const [todos, setTodos] = useState([{ content: 'aaa', createdAt: new Date().getTime() }]);
+  const [todos, setTodos] = useState([
+    { content: 'aaa', isDone: false, createdDate: new Date().getTime(), modifiedDate: new Date().getTime() },
+  ]);
+
+  function handleDoneChange(id) {
+    setTodos(
+      todos.map(item => {
+        if (item.id !== id) return item;
+        return { ...item, isDone: !item.isDone, modifiedDate: new Date().getTime() };
+      }),
+    );
+  }
 
   function handleSave() {
     if (!todo) {
@@ -73,7 +86,7 @@ export default function Home() {
           <div className={styles.container}>
             <ul className={styles.todo__list}>
               {todos.map((item, idx) => (
-                <TodoItem key={idx} {...item} />
+                <TodoItem key={idx} item={item} onDoneChange={e => handleDoneChange(item.id, e)} />
               ))}
             </ul>
           </div>

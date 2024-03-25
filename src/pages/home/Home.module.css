@@ -73,4 +73,8 @@
   .todo__content {
     flex-grow: 1;
   }
+  .todo__content--done {
+    text-decoration: line-through;
+    color: rgba(0, 0, 0, 0.6);
+  }
 }
