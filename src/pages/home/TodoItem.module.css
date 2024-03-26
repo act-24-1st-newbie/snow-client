@@ -1,0 +1,22 @@
+.todo__item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  height: 60px;
+  padding: 0 16px;
+
+  border-radius: 4px;
+
+  background-color: #ffffff;
+}
+
+.todo__content {
+  flex-grow: 1;
+}
+.todo__content--done {
+  text-decoration: line-through;
+  color: rgba(0, 0, 0, 0.6);
+}

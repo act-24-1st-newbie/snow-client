@@ -14,14 +14,14 @@ import nor from '/ic_send_nor.svg';
  * } & React.ComponentPropsWithoutRef<'input'>} param0
  * @returns
  */
-function TextField({ value, showBorder, onSend, ...rest }) {
+function TextField({ value, hideBorder, onSend, ...rest }) {
   return (
     <div className="textfield">
       <input
         type="search"
-        className={cn('textfield__input', { 'textfield__input--border': showBorder })}
-        value={value}
         {...rest}
+        className={cn('textfield__input', { 'textfield__input--border': !hideBorder })}
+        value={value}
       />
       <input type="image" className="textfield__send" src={!value ? nor : hov} onClick={onSend} />
     </div>
@@ -30,7 +30,7 @@ function TextField({ value, showBorder, onSend, ...rest }) {
 
 TextField.propTypes = {
   value: PropTypes.string,
-  showBorder: PropTypes.bool,
+  hideBorder: PropTypes.bool,
   onSend: PropTypes.func,
 };
 

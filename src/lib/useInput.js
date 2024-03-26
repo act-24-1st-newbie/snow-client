@@ -3,13 +3,13 @@ import { useState } from 'react';
 /**
  * @param {string=} defaultValue
  * @param {Function=} submitFunction
- * @returns {{
+ * @returns {[{
  *   onChange: React.ChangeEventHandler<HTMLInputElement>,
  *   onKeyUp: React.KeyboardEventHandler<HTMLInputElement>,
  *   value: string
- * }}
+ * }, Function]}
  */
-export default function useInput(defaultValue, submitFunction) {
+export function useInput(defaultValue, submitFunction) {
   const [value, setValue] = useState(defaultValue);
 
   return [
