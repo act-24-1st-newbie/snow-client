@@ -18,6 +18,21 @@ export default function Home() {
   const [todos, setTodos] = useState([
     { id: 1, content: 'aaa', isDone: false, createdDate: new Date().getTime(), modifiedDate: new Date().getTime() },
   ]);
+  const [order, setOrder] = useState('Oldest');
+
+  /* ********* SELECTBOX ********** */
+
+  function handleOrderChange(e) {
+    setOrder(e.target.value);
+
+    if (e.target.value === 'Oldest') {
+      setTodos(todos.sort((a, b) => a.createdDate - b.createdDate));
+    } else {
+      setTodos(todos.sort((a, b) => b.createdDate - a.createdDate));
+    }
+  }
+
+  /* ********** TODOLIST ********** */
 
   function handleItemClick(id) {
     setTodos(
@@ -76,6 +91,8 @@ export default function Home() {
     setTodos([]);
   }
 
+  /* ********** RENDER ********** */
+
   return (
     <main className={styles['home-page']}>
       <section className={styles.top}>
@@ -99,7 +116,10 @@ export default function Home() {
         ) : (
           <div className={styles.container}>
             <div className={styles.todo__control}>
-              <select></select>
+              <select className={styles.todo__order} value={order} onChange={handleOrderChange}>
+                <option value="Oldest">Oldest</option>
+                <option value="Latest">Latest</option>
+              </select>
               <Button variants="link" onClick={handleClearAll}>
                 Clear All
               </Button>
