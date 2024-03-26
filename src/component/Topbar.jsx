@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 
 import './Topbar.css';
+import Button from './ui/Button';
 import topbarMenu from '/ic_topbar_menu.svg';
 
 function Topbar() {
@@ -17,9 +18,10 @@ function Topbar() {
         </Link>
       </div>
       <div className="topbar__right">
-        <Link to="/test">TO TEST</Link>
         <div className="topbar__date">{format(new Date(), 'MM/dd (EEE)')}</div>
-        <button>Sign Up</button>
+        <Button variants="secondary" className="topbar__signup">
+          Sign Up
+        </Button>
       </div>
     </header>
   );

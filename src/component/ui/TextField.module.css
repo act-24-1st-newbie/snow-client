@@ -24,7 +24,7 @@
   &.textfield__input--border {
     border-bottom: 1px solid var(--border-color);
     &:focus {
-      border-color: var(--primary-color);
+      border-bottom-color: var(--primary-color);
     }
   }
 }

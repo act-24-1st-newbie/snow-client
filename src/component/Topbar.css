@@ -45,4 +45,12 @@
     font-weight: 700;
     color: #ffffff;
   }
+
+  .topbar__signup {
+    border: 1px solid #ffffff;
+    color: #ffffff;
+
+    height: 28px;
+    font-size: 0.875rem;
+  }
 }

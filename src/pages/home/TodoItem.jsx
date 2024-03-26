@@ -13,7 +13,14 @@ import styles from './TodoItem.module.css';
 
 /**
  * TodoItem Component
- * @param {{item: Todo, onDoneChange: Function}} param0
+ * @param {{
+ * item: Todo,
+ * isEditing: boolean,
+ * onClick: React.MouseEventHandler<HTMLButtonElement>
+ * onUpdate: (value) => {}
+ * onDoneChange: React.ChangeEventHandler<HTMLInputElement>
+ * onDelete: React.MouseEventHandler<HTMLButtonElement>
+ * }} param0
  */
 function TodoItem({ item, isEditing, onClick, onUpdate, onDoneChange, onDelete }) {
   const { contents, isDone, createdDate } = item;
