@@ -53,7 +53,7 @@ export default function Home() {
 
     const now = new Date().getTime();
 
-    setTodos(prev => [
+    setTodos([
       {
         id: now,
         content: todo,
@@ -61,10 +61,14 @@ export default function Home() {
         createdDate: now,
         modifiedDate: now,
       },
-      ...prev,
+      ...todos,
     ]);
 
     setTodo('');
+  }
+
+  function handleDelete(id) {
+    setTodos(todos.filter(item => item.id !== id));
   }
 
   return (
@@ -98,6 +102,7 @@ export default function Home() {
                   onClick={e => handleItemClick(item.id, e)}
                   onUpdate={v => handleItemUpdate(item.id, v)}
                   onDoneChange={e => handleDoneChange(item.id, e)}
+                  onDelete={() => handleDelete(item.id)}
                 />
               ))}
             </ul>

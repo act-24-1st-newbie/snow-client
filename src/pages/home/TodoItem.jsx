@@ -13,12 +13,14 @@ import styles from './TodoItem.module.css';
  * TodoItem Component
  * @param {{item: Todo, onDoneChange: Function}} param0
  */
-function TodoItem({ item, isEditing, onClick, onUpdate, onDoneChange }) {
+function TodoItem({ item, isEditing, onClick, onUpdate, onDoneChange, onDelete }) {
   const { content, isDone, createdDate } = item;
   const [contentProps] = useInput(content, handleUpdate);
 
   function handleUpdate() {
-    onUpdate?.(contentProps.value);
+    if (contentProps.value) {
+      onUpdate?.(contentProps.value);
+    }
   }
 
   if (isEditing) {
@@ -36,7 +38,7 @@ function TodoItem({ item, isEditing, onClick, onUpdate, onDoneChange }) {
         {content}
       </span>
       <span>{format(createdDate, 'MM/dd HH:mm')}</span>
-      <DeleteButton />
+      <DeleteButton onClick={onDelete} />
     </li>
   );
 }
@@ -47,6 +49,7 @@ TodoItem.propTypes = {
   onClick: PropTypes.func,
   onUpdate: PropTypes.func,
   onDoneChange: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 export default TodoItem;
