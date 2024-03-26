@@ -40,7 +40,7 @@ function TodoItem({ item, isEditing, onClick, onUpdate, onDoneChange, onDelete }
 
   if (isEditing) {
     return (
-      <li className={styles.todo__item}>
+      <li className={cn(styles.todo__item, styles['todo__item--active'])}>
         <TextField hideBorder {...contentsProps} onSend={handleUpdate} />
       </li>
     );
