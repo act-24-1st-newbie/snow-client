@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import cn from 'classnames';
 import { format } from 'date-fns';
@@ -14,17 +14,18 @@ import styles from './TodoItem.module.css';
 /**
  * TodoItem Component
  * @param {{
- * item: Todo,
- * isEditing: boolean,
- * onClick: React.MouseEventHandler<HTMLButtonElement>
- * onUpdate: (value) => {}
- * onDoneChange: React.ChangeEventHandler<HTMLInputElement>
- * onDelete: React.MouseEventHandler<HTMLButtonElement>
+ *  item: Todo,
+ *  isEditing: boolean,
+ *  onClick: React.MouseEventHandler<HTMLButtonElement>
+ *  onUpdate: (value) => {}
+ *  onDoneChange: React.ChangeEventHandler<HTMLInputElement>
+ *  onDelete: React.MouseEventHandler<HTMLButtonElement>
  * }} param0
  */
 function TodoItem({ item, isEditing, onClick, onUpdate, onDoneChange, onDelete }) {
   const { contents, isDone, createdDate } = item;
   const [contentsProps, setContents] = useInput(contents, handleUpdate);
+  const tfRef = useRef(null);
 
   useEffect(() => {
     if (isEditing) {
@@ -38,10 +39,16 @@ function TodoItem({ item, isEditing, onClick, onUpdate, onDoneChange, onDelete }
     }
   }
 
+  useEffect(() => {
+    if (isEditing) {
+      tfRef?.current?.focus();
+    }
+  }, [isEditing]);
+
   if (isEditing) {
     return (
       <li className={cn(styles.todo__item, styles['todo__item--active'])}>
-        <TextField hideBorder {...contentsProps} onSend={handleUpdate} />
+        <TextField hideBorder {...contentsProps} onSend={handleUpdate} ref={tfRef} />
       </li>
     );
   }

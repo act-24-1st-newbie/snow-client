@@ -17,15 +17,6 @@
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
-
-  z-index: 1;
-  
-  span {
-    z-index: 0;
-  }
-  img {
-    z-index: 0
-  }
 }
 
 .dropdown__over {
@@ -35,6 +26,7 @@
   background-color: #ffffff;
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
+
   div {
     height: 40px;
 
