@@ -21,6 +21,8 @@
   font-size: 1rem;
   line-height: 1.5;
 
+  padding: 4px 0;
+
   &.textfield__input--border {
     border-bottom: 1px solid var(--border-color);
     &:focus {

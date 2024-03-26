@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import Button from '@/component/ui/Button';
+import Dropdown from '@/component/ui/Dropdown';
 import TextField from '@/component/ui/TextField';
 
 const style = {
@@ -12,8 +13,14 @@ const style = {
   gap: '16px',
 };
 
+const options = [
+  { title: 'Oldest', value: 'Oldest' },
+  { title: 'Latest', value: 'Latest' },
+];
+
 export default function Test() {
   const [text, setText] = useState('');
+  const [selected, setSelected] = useState(options[0].value);
 
   function handleChange(e) {
     setText(e.target.value);
@@ -46,6 +53,13 @@ export default function Test() {
           onSend={handleSend}
           hideBorder
         />
+      </div>
+      <div style={{ display: 'flex', gap: '8px' }}>
+        <Dropdown value={selected} options={options} onChange={v => setSelected(v)} />
+        <select style={{ padding: '0 16px' }}>
+          <option>Oldest</option>
+          <option>Latest</option>
+        </select>
       </div>
       <div style={{ display: 'flex', gap: '8px' }}>
         <Button variants="primary">PRIMARY</Button>
