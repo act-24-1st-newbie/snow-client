@@ -1,0 +1,48 @@
+.btn {
+  appearance: none;
+  height: 36px;
+
+  padding: 0 12px;
+
+  font-size: 1rem;
+  border-radius: 4px;
+}
+
+.btn--primary {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border: 1px outset transparent;
+  &:disabled {
+    background-color: rgba(var(--raw-primary-color) / 30%);
+  }
+  &:hover:not(:disabled) {
+    background-color: color-mix(in srgb, var(--primary-color), rgba(0, 0, 0) 20%);
+  }
+}
+
+.btn--secondary {
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  &:disabled {
+    color: rgba(0, 0, 0, 0.2);
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+  &:hover:not(:disabled) {
+    background-color: rgba(0, 0, 0, 0.08);
+    color: #000000;
+  }
+}
+
+.btn--link {
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.6);
+  border: 1px outset transparent;
+  &:disabled {
+    color: rgba(0, 0, 0, 0.2);
+  }
+  &:hover:not(:disabled) {
+    background-color: rgba(0, 0, 0, 0.08);
+    color: #000000;
+  }
+}

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import Button from '@/component/ui/Button';
 import TextField from '@/component/ui/TextField';
 import { useInput } from '@/lib/useInput';
 
@@ -71,6 +72,10 @@ export default function Home() {
     setTodos(todos.filter(item => item.id !== id));
   }
 
+  function handleClearAll() {
+    setTodos([]);
+  }
+
   return (
     <main className={styles['home-page']}>
       <section className={styles.top}>
@@ -93,6 +98,12 @@ export default function Home() {
           <EmptyTodo />
         ) : (
           <div className={styles.container}>
+            <div className={styles.todo__control}>
+              <select></select>
+              <Button variants="link" onClick={handleClearAll}>
+                Clear All
+              </Button>
+            </div>
             <ul className={styles.todo__list}>
               {todos.map(item => (
                 <TodoItem

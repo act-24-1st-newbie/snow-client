@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import Button from '@/component/ui/Button';
 import TextField from '@/component/ui/TextField';
 
 const style = {
@@ -34,13 +35,7 @@ export default function Test() {
         <TextField />
       </div>
       <div style={{ width: '300px' }}>
-        <TextField
-          placeholder="Input Here..."
-          value={text}
-          onKeyUp={handleKeyUp}
-          onChange={handleChange}
-          onSend={handleSend}
-        />
+        <TextField placeholder="Input Here..." />
       </div>
       <div style={{ width: '300px' }}>
         <TextField
@@ -49,8 +44,24 @@ export default function Test() {
           onKeyUp={handleKeyUp}
           onChange={handleChange}
           onSend={handleSend}
-          showBorder
+          hideBorder
         />
+      </div>
+      <div style={{ display: 'flex', gap: '8px' }}>
+        <Button variants="primary">PRIMARY</Button>
+        <Button variants="secondary">SECONDARY</Button>
+        <Button variants="link">LINK</Button>
+      </div>
+      <div style={{ display: 'flex', gap: '8px' }}>
+        <Button variants="primary" disabled>
+          PRIMARY
+        </Button>
+        <Button variants="secondary" disabled>
+          SECONDARY
+        </Button>
+        <Button variants="link" disabled>
+          LINK
+        </Button>
       </div>
     </main>
   );
