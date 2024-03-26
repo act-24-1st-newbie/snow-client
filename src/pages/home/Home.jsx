@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Button from '@/component/ui/Button';
 import TextField from '@/component/ui/TextField';
 import { useInput } from '@/lib/useInput';
+import { getGreeting, getTodoCount } from '@/lib/util';
 
 import EmptyTodo from './EmptyTodo';
 import styles from './Home.module.css';
@@ -98,11 +99,13 @@ export default function Home() {
       <section className={styles.top}>
         <div className={styles.container}>
           <div className={styles.top__greeting}>
-            <p>Good afternoon, {name}.</p>
+            <p>
+              {getGreeting()}, {name}.
+            </p>
           </div>
           <div className={styles.top__info}>
             <p>You&apos;ve got</p>
-            <h1>0/0</h1>
+            <h1>{getTodoCount(todos)}</h1>
             <p>task(s) today!</p>
           </div>
           <div className={styles.top__input}>
