@@ -14,8 +14,8 @@ import styles from './TodoItem.module.css';
  * @param {{item: Todo, onDoneChange: Function}} param0
  */
 function TodoItem({ item, isEditing, onClick, onUpdate, onDoneChange, onDelete }) {
-  const { content, isDone, createdDate } = item;
-  const [contentProps] = useInput(content, handleUpdate);
+  const { contents, isDone, createdDate } = item;
+  const [contentProps] = useInput(contents, handleUpdate);
 
   function handleUpdate() {
     if (contentProps.value) {
@@ -33,9 +33,9 @@ function TodoItem({ item, isEditing, onClick, onUpdate, onDoneChange, onDelete }
 
   return (
     <li className={styles.todo__item}>
-      <Checkbox value={isDone} onChange={onDoneChange} />
+      <Checkbox checked={isDone} onChange={onDoneChange} />
       <span className={cn(styles.todo__content, { [styles['todo__content--done']]: isDone })} onClick={onClick}>
-        {content}
+        {contents}
       </span>
       <span>{format(createdDate, 'MM/dd HH:mm')}</span>
       <DeleteButton onClick={onDelete} />

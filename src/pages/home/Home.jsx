@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Button from '@/component/ui/Button';
 import TextField from '@/component/ui/TextField';
+import { getTasks } from '@/lib/service';
 import { useInput } from '@/lib/useInput';
 import { getGreeting, getTodoCount } from '@/lib/util';
 
@@ -16,10 +17,17 @@ export default function Home() {
   const name = sessionStorage.getItem('name') ?? 'Anonymous';
 
   const [todoProps, setTodo] = useInput('', handleSave);
-  const [todos, setTodos] = useState([
-    { id: 1, content: 'aaa', isDone: false, createdDate: new Date().getTime(), modifiedDate: new Date().getTime() },
-  ]);
+  const [todos, setTodos] = useState([]);
   const [order, setOrder] = useState('Oldest');
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchData() {
+    const res = await getTasks();
+    setTodos(res.data);
+  }
 
   /* ********* SELECTBOX ********** */
 

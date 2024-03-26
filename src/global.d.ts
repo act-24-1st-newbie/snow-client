@@ -1,6 +1,6 @@
 interface Todo {
   id: number;
-  content: string;
+  contents: string;
   isDone: boolean;
   createdDate: number;
   modifiedDate: number;
