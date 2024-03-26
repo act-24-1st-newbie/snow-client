@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import Button from '@/component/ui/Button';
+import Dropdown from '@/component/ui/Dropdown';
 import TextField from '@/component/ui/TextField';
 import { deleteTask, deleteTasks, getTasks, patchTask, postTask } from '@/lib/service';
 import { useInput } from '@/lib/useInput';
@@ -10,6 +11,11 @@ import EmptyTodo from './EmptyTodo';
 import styles from './Home.module.css';
 import TodoItem from './TodoItem';
 
+const options = [
+  { title: 'Oldest', value: 'Oldest' },
+  { title: 'Latest', value: 'Latest' },
+];
+
 /**
  * Home Page
  */
@@ -18,7 +24,7 @@ export default function Home() {
 
   const [todoProps, setTodo] = useInput('', handleSave);
   const [todos, setTodos] = useState([]);
-  const [order, setOrder] = useState('Oldest');
+  const [order, setOrder] = useState(options[0].value);
 
   useEffect(() => {
     fetchData();
@@ -39,10 +45,10 @@ export default function Home() {
 
   /* ********* SELECTBOX ********** */
 
-  function handleOrderChange(e) {
-    setOrder(e.target.value);
+  function handleOrderChange(v) {
+    setOrder(v);
 
-    if (e.target.value === 'Oldest') {
+    if (v === 'Oldest') {
       setTodos(todos.sort((a, b) => a.createdDate - b.createdDate));
     } else {
       setTodos(todos.sort((a, b) => b.createdDate - a.createdDate));
@@ -133,10 +139,7 @@ export default function Home() {
         ) : (
           <div className={styles.container}>
             <div className={styles.todo__control}>
-              <select className={styles.todo__order} value={order} onChange={handleOrderChange}>
-                <option value="Oldest">Oldest</option>
-                <option value="Latest">Latest</option>
-              </select>
+              <Dropdown value={order} options={options} onChange={handleOrderChange} />
               <Button variants="link" onClick={handleClearAll}>
                 Clear All
               </Button>
