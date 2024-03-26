@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import cn from 'classnames';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
@@ -15,18 +17,24 @@ import styles from './TodoItem.module.css';
  */
 function TodoItem({ item, isEditing, onClick, onUpdate, onDoneChange, onDelete }) {
   const { contents, isDone, createdDate } = item;
-  const [contentProps] = useInput(contents, handleUpdate);
+  const [contentsProps, setContents] = useInput(contents, handleUpdate);
+
+  useEffect(() => {
+    if (isEditing) {
+      setContents(contents);
+    }
+  }, [setContents, contents, isEditing]);
 
   function handleUpdate() {
-    if (contentProps.value) {
-      onUpdate?.(contentProps.value);
+    if (contentsProps.value) {
+      onUpdate?.(contentsProps.value);
     }
   }
 
   if (isEditing) {
     return (
       <li className={styles.todo__item}>
-        <TextField hideBorder {...contentProps} onSend={handleUpdate} />
+        <TextField hideBorder {...contentsProps} onSend={handleUpdate} />
       </li>
     );
   }

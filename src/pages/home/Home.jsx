@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import Button from '@/component/ui/Button';
 import TextField from '@/component/ui/TextField';
-import { getTasks } from '@/lib/service';
+import { deleteTask, deleteTasks, getTasks, patchTask, postTask } from '@/lib/service';
 import { useInput } from '@/lib/useInput';
 import { getGreeting, getTodoCount } from '@/lib/util';
 
@@ -26,7 +26,15 @@ export default function Home() {
 
   async function fetchData() {
     const res = await getTasks();
-    setTodos(res.data);
+    /** @type {Todo[]} */
+    const data = [...res.data];
+
+    // apply sort order
+    if (order === 'Latest') {
+      data.sort((a, b) => b.createdDate - a.createdDate);
+    }
+
+    setTodos(data);
   }
 
   /* ********* SELECTBOX ********** */
@@ -43,7 +51,9 @@ export default function Home() {
 
   /* ********** TODOLIST ********** */
 
-  function handleItemClick(id) {
+  function handleItemClick(id, isDone) {
+    if (isDone) return;
+
     setTodos(
       todos.map(item => {
         if (item.id !== id) return { ...item, isEditing: false };
@@ -52,52 +62,48 @@ export default function Home() {
     );
   }
 
-  function handleItemUpdate(id, value) {
-    setTodos(
-      todos.map(item => {
+  async function handleItemUpdate(id, value) {
+    await patchTask(id, { contents: value });
+    fetchData();
+  }
+
+  async function handleDoneChange(id, e) {
+    const { checked: isDone } = e.target;
+    await patchTask(id, { isDone });
+
+    // Update only client
+    setTodos(prev =>
+      prev.map(item => {
         if (item.id !== id) return item;
-        return { ...item, isEditing: false, content: value, modifiedDate: new Date().getTime() };
+        return { ...item, isDone };
       }),
     );
   }
 
-  function handleDoneChange(id) {
-    setTodos(
-      todos.map(item => {
-        if (item.id !== id) return item;
-        return { ...item, isDone: !item.isDone, modifiedDate: new Date().getTime() };
-      }),
-    );
-  }
-
-  function handleSave() {
+  async function handleSave() {
     const { value: todo } = todoProps;
     if (!todo) {
       return;
     }
 
-    const now = new Date().getTime();
-
-    setTodos([
-      {
-        id: now,
-        content: todo,
-        isDone: false,
-        createdDate: now,
-        modifiedDate: now,
-      },
-      ...todos,
-    ]);
-
+    // save to server
+    await postTask({ contents: todo });
+    // reload
+    fetchData();
+    // clear input area
     setTodo('');
   }
 
-  function handleDelete(id) {
-    setTodos(todos.filter(item => item.id !== id));
+  async function handleDelete(id) {
+    await deleteTask(id);
+    fetchData();
   }
 
-  function handleClearAll() {
-    setTodos([]);
+  async function handleClearAll() {
+    if (confirm('Are you sure?')) {
+      await deleteTasks();
+      setTodos([]);
+    }
   }
 
   /* ********** RENDER ********** */
@@ -141,7 +147,7 @@ export default function Home() {
                   key={item.id}
                   item={item}
                   isEditing={item.isEditing}
-                  onClick={e => handleItemClick(item.id, e)}
+                  onClick={() => handleItemClick(item.id, item.isDone)}
                   onUpdate={v => handleItemUpdate(item.id, v)}
                   onDoneChange={e => handleDoneChange(item.id, e)}
                   onDelete={() => handleDelete(item.id)}
