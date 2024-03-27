@@ -3,8 +3,10 @@ import { useEffect, useState } from 'react';
 import Button from '@/component/ui/Button';
 import Dropdown from '@/component/ui/Dropdown';
 import TextField from '@/component/ui/TextField';
+import Toast from '@/component/ui/Toast';
 import { deleteTask, deleteTasks, getTasks, patchTask, postTask } from '@/lib/service';
 import { useInput } from '@/lib/useInput';
+import { useToast } from '@/lib/useToast';
 import { getGreeting, getTodoCount } from '@/lib/util';
 
 import EmptyTodo from './EmptyTodo';
@@ -25,6 +27,7 @@ export default function Home() {
   const [todoProps, setTodo] = useInput('', handleSave);
   const [todos, setTodos] = useState([]);
   const [order, setOrder] = useState(options[0].value);
+  const { showToast } = useToast();
 
   useEffect(() => {
     fetchData();
@@ -71,11 +74,16 @@ export default function Home() {
   async function handleItemUpdate(id, value) {
     await patchTask(id, { contents: value });
     fetchData();
+    showToast('Task has been modified');
   }
 
   async function handleDoneChange(id, e) {
     const { checked: isDone } = e.target;
     await patchTask(id, { isDone });
+
+    if (isDone) {
+      showToast('Task has been completed');
+    }
 
     // Update only client
     setTodos(prev =>
@@ -96,6 +104,9 @@ export default function Home() {
     await postTask({ contents: todo });
     // reload
     fetchData();
+    // show toast
+    showToast('Task has been registered');
+
     // clear input area
     setTodo('');
   }
@@ -103,12 +114,14 @@ export default function Home() {
   async function handleDelete(id) {
     await deleteTask(id);
     fetchData();
+    showToast('Task has been deleted');
   }
 
   async function handleClearAll() {
     if (confirm('Are you sure?')) {
       await deleteTasks();
       setTodos([]);
+      showToast('All tasks have been deleted');
     }
   }
 
@@ -160,6 +173,7 @@ export default function Home() {
           </div>
         )}
       </section>
+      <Toast />
     </main>
   );
 }

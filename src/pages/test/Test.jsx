@@ -3,6 +3,8 @@ import { useState } from 'react';
 import Button from '@/component/ui/Button';
 import Dropdown from '@/component/ui/Dropdown';
 import TextField from '@/component/ui/TextField';
+import Toast from '@/component/ui/Toast';
+import { useToast } from '@/lib/useToast';
 
 const style = {
   width: '1024px',
@@ -21,6 +23,7 @@ const options = [
 export default function Test() {
   const [text, setText] = useState('');
   const [selected, setSelected] = useState(options[0].value);
+  const { showToast } = useToast();
 
   function handleChange(e) {
     setText(e.target.value);
@@ -34,6 +37,10 @@ export default function Test() {
 
   function handleSend() {
     alert(text);
+  }
+
+  function handleOpenClick() {
+    showToast('abcdefg');
   }
 
   return (
@@ -62,7 +69,9 @@ export default function Test() {
         </select>
       </div>
       <div style={{ display: 'flex', gap: '8px' }}>
-        <Button variants="primary">PRIMARY</Button>
+        <Button variants="primary" onClick={handleOpenClick}>
+          OPEN TOAST
+        </Button>
         <Button variants="secondary">SECONDARY</Button>
         <Button variants="link">LINK</Button>
       </div>
@@ -77,6 +86,7 @@ export default function Test() {
           LINK
         </Button>
       </div>
+      <Toast />
     </main>
   );
 }
