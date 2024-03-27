@@ -23,7 +23,7 @@ import styles from './TodoItem.module.css';
  * }} param0
  */
 function TodoItem({ item, isEditing, onClick, onUpdate, onDoneChange, onDelete }) {
-  const { contents, isDone, createdDate } = item;
+  const { contents, isDone, createdDate, modifiedDate } = item;
   const [contentsProps, setContents] = useInput(contents, handleUpdate);
   const tfRef = useRef(null);
 
@@ -59,7 +59,10 @@ function TodoItem({ item, isEditing, onClick, onUpdate, onDoneChange, onDelete }
       <span className={cn(styles.todo__content, { [styles['todo__content--done']]: isDone })} onClick={onClick}>
         {contents}
       </span>
-      <span>{format(createdDate, 'MM/dd HH:mm')}</span>
+      <div className={styles.todo__time}>
+        <p>C {format(createdDate, 'MM/dd HH:mm')}</p>
+        <p>M {format(modifiedDate, 'MM/dd HH:mm')}</p>
+      </div>
       <DeleteButton onClick={onDelete} />
     </li>
   );
