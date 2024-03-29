@@ -10,10 +10,13 @@
   width: 100%;
 }
 
+.textfield__wrap {
+  flex-grow: 1;
+  position: relative;
+}
+
 .textfield__input {
   outline: none;
-
-  flex-grow: 1;
 
   border: 1px solid transparent;
 
@@ -21,7 +24,8 @@
   font-size: 1rem;
   line-height: 1.5;
 
-  padding: 4px 0;
+  padding: 4px 24px 4px 0;
+  width: 100%;
 
   &.textfield__input--border {
     border-bottom: 1px solid var(--border-color);
@@ -29,6 +33,24 @@
       border-bottom-color: var(--primary-color);
     }
   }
+}
+
+.textfield__clear {
+  z-index: 1;
+  position: absolute;
+  
+  top: 0;
+  bottom: 0;
+  right: 0;
+
+  margin-top: auto;
+  margin-bottom: auto;
+
+  visibility: hidden;
+}
+
+.textfield__clear--show {
+  visibility: visible;
 }
 
 .textfield__send {
