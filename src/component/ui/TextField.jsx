@@ -47,7 +47,7 @@ const TextField = forwardRef(
 
     function handleClearClick() {
       setInnerValue('');
-      onChange?.({ target: inputRef.current });
+      onChange?.({ target: { ...inputRef.current, value: '' } });
       inputRef.current.focus();
     }
 
