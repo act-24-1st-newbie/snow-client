@@ -66,7 +66,9 @@ export default function Test() {
         <Button variants="primary" onClick={handleOpenClick}>
           OPEN TOAST
         </Button>
-        <Button variants="secondary">SECONDARY</Button>
+        <Button variants="secondary" onClick={() => setText('CHANGE!')}>
+          SECONDARY
+        </Button>
         <Button variants="link">LINK</Button>
       </div>
       <div style={{ display: 'flex', gap: '8px' }}>

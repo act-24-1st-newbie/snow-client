@@ -21,3 +21,11 @@ export async function deleteTask(id) {
 export async function deleteTasks() {
   return axios.delete('/api/v1/task');
 }
+
+export async function postMemberCheck(email) {
+  return axios.post('/api/v1/member/check', { email });
+}
+
+export async function postMember(user) {
+  return axios.post('/api/v1/member', user);
+}

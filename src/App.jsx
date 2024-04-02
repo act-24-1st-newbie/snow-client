@@ -1,13 +1,13 @@
 import { Outlet } from 'react-router';
 
 import './App.css';
-import Topbar from './component/Topbar';
+import Toast from './component/ui/Toast';
 
 function App() {
   return (
     <>
-      <Topbar />
       <Outlet />
+      <Toast />
     </>
   );
 }

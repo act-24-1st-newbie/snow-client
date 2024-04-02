@@ -1,0 +1,29 @@
+.signup {
+  width: 400px;
+  margin: auto;
+}
+
+.title {
+  margin: 60px 0 0 0;
+  font-size: 3em;
+}
+
+.email-container {
+  margin-top: 32px;
+}
+
+.name-container {
+  margin-top: 10px;
+}
+
+.label {
+  font-size: 0.75rem;
+  line-height: 1.66;
+}
+
+.btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}

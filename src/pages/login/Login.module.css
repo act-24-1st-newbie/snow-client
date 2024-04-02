@@ -24,3 +24,20 @@
     font-size: 3rem;
   }
 }
+
+.signup {
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  
+  padding: 0 12px;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  color: #ffffff;
+
+  font-size: 0.875rem;
+  &:visited {
+    color: #ffffff;
+  }
+}

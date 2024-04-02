@@ -4,6 +4,7 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 
 import styles from './TextField.module.css';
+import chk from '/btn_check.svg';
 import del from '/ic_delete.svg';
 import hov from '/ic_send_hov.svg';
 import nor from '/ic_send_nor.svg';
@@ -14,7 +15,7 @@ import nor from '/ic_send_nor.svg';
  * @param {string} str
  * @returns {bool}
  */
-function validate(type, str) {
+function _validate(type, str) {
   if (!str) return true;
 
   if (type === 'text') {
@@ -33,14 +34,22 @@ const TextField = forwardRef(
    * @param {{
    *  type: 'text'|'email',
    *  hideBorder?: boolean,
-   *  onUpdate: (value: string) => {},
-   *  onSubmit: () => {},
+   *  hideButton?: boolean,
+   *  status?: number,
+   *  statusMsg?: string,
+   *  onUpdate: (value?: string) => {},
+   *  onSubmit: (isValid?: boolean) => {},
    * } & React.ComponentPropsWithRef<'input'>} param0
    * @returns
    */
-  ({ type, value, hideBorder, onUpdate, onSubmit, ...rest }, ref) => {
+  ({ type, value, hideBorder, hideButton, status, statusMsg, onUpdate, onSubmit, ...rest }, ref) => {
+    // eslint-disable-next-line
+    const { className, onChange, ...inputProps } = rest;
+
+    /** @type {React.MutableRefObject<null|HTMLInputElement>} */
     const inputRef = useRef(null);
-    const [inner, setInner] = useState('');
+    const [inner, setInner] = useState(value);
+
     useEffect(() => {
       setInner(value);
     }, [value]);
@@ -52,15 +61,24 @@ const TextField = forwardRef(
           focus() {
             inputRef.current.focus();
           },
+          validate() {
+            return _validate(type, inner);
+          },
         };
       },
-      [],
+      [type, inner],
     );
 
     /* 글자가 변경되면 상위 컴포넌트로 전달 */
     function handleChange(e) {
       setInner(e.target.value);
       onUpdate?.(e.target.value);
+    }
+
+    /* Clear버튼 클릭 이벤트 */
+    function handleClearClick() {
+      setInner('');
+      onUpdate?.('');
     }
 
     /* KeyUp 또는 Submit버튼이 눌리면 상위 컴포넌트에 이벤트 전달 */
@@ -74,26 +92,21 @@ const TextField = forwardRef(
       onSubmit?.();
     }
 
-    function handleClearClick() {
-      setInner('');
-      onUpdate?.('');
-    }
-
     return (
       <div>
         <div className={styles.textfield}>
           <div className={styles.textfield__wrap}>
             <input
               type="text"
-              {...rest}
               className={cn(styles.textfield__input, {
                 [styles['textfield__input--border']]: !hideBorder,
-                [styles['textfield__input--error']]: !validate(type, inner),
+                [styles['textfield__input--error']]: status === 2,
               })}
               value={inner}
               onChange={handleChange}
               onKeyUp={handleKeyUp}
               ref={inputRef}
+              {...inputProps}
             />
             <input
               type="image"
@@ -103,23 +116,28 @@ const TextField = forwardRef(
             />
           </div>
           {type === 'text' ? (
-            <input
-              type="image"
-              className={styles.textfield__send}
-              src={!inner ? nor : hov}
-              onClick={handleClick}
-              value={'\u200B'}
-            />
+            !hideButton && (
+              <input
+                type="image"
+                className={styles.textfield__send}
+                src={!inner ? nor : hov}
+                onClick={handleClick}
+                value={'\u200B'}
+              />
+            )
           ) : (
-            <button className={styles.textfield__check}>Check</button>
+            <button type="button" className={styles.textfield__check} onClick={handleClick}>
+              {status === 1 ? <img src={chk} /> : 'Check'}
+            </button>
           )}
         </div>
         <div
           className={cn(styles.textfield__message, {
-            [styles['textfield__message--visible']]: !validate(type, inner),
+            [styles['textfield__message--error']]: status === 2,
+            [styles['textfield__message--valid']]: status === 1,
           })}
         >
-          <span>Invalid {type} format</span>
+          <span>{statusMsg || `Invalid ${type} format`}</span>
         </div>
       </div>
     );
@@ -130,10 +148,16 @@ TextField.displayName = 'TextField';
 
 TextField.propTypes = {
   type: PropTypes.oneOf(['text', 'email']).isRequired,
-  value: PropTypes.string,
   hideBorder: PropTypes.bool,
+  hideButton: PropTypes.bool,
+  status: PropTypes.number,
+  statusMsg: PropTypes.string,
   onUpdate: PropTypes.func,
   onSubmit: PropTypes.func,
+
+  value: PropTypes.string,
+  className: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 export default TextField;

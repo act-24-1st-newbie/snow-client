@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 
 import { format } from 'date-fns';
+import PropTypes from 'prop-types';
 
 import './Topbar.css';
-import Button from './ui/Button';
 import topbarMenu from '/ic_topbar_menu.svg';
 
-function Topbar() {
+function Topbar({ children }) {
   return (
     <header className="topbar">
       <div className="topbar__left">
@@ -19,12 +19,14 @@ function Topbar() {
       </div>
       <div className="topbar__right">
         <div className="topbar__date">{format(new Date(), 'MM/dd (EEE)')}</div>
-        <Button variants="secondary" className="topbar__signup">
-          Sign Up
-        </Button>
+        {children}
       </div>
     </header>
   );
 }
+
+Topbar.propTypes = {
+  children: PropTypes.node,
+};
 
 export default Topbar;

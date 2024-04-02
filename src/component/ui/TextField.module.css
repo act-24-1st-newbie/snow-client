@@ -65,13 +65,17 @@
 }
 
 .textfield__message {
-  color: #D15050;
   font-size: 0.75rem;
   visibility: hidden;
-}
 
-.textfield__message--visible {
-  visibility: visible;
+  &.textfield__message--error {
+    color: #D15050;
+    visibility: visible;
+  }
+  &.textfield__message--valid {
+    color: var(--primary-color);
+    visibility: visible;
+  }
 }
 
 .textfield__check {
@@ -81,6 +85,9 @@
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 4px;
   
+  display: flex;
+  align-items: center;
+
   background-color: transparent;
   color: rgba(0, 0, 0, 0.6);
 
