@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import App from './App';
+import ErrorBoundary from './component/ErrorBoundary';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login2';
 import Signup from './pages/signup/Signup';
@@ -10,6 +11,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         path: '',
