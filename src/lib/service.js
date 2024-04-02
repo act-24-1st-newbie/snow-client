@@ -2,8 +2,8 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:8080';
 
-export async function getTasks() {
-  return axios.get('/api/v1/task');
+export async function getTasks(memberId) {
+  return axios.get(`/api/v1/task/${memberId}`);
 }
 
 export async function postTask(todo) {
@@ -24,6 +24,12 @@ export async function deleteTasks() {
 
 export async function postMemberCheck(email) {
   return axios.post('/api/v1/member/check', { email });
+}
+
+export async function getMember(email) {
+  return axios.get('/api/v1/member', {
+    params: { email },
+  });
 }
 
 export async function postMember(user) {

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Topbar from '@/component/Topbar';
 import Button from '@/component/ui/Button';
@@ -21,7 +22,9 @@ const options = [
  * Home Page
  */
 export default function Home() {
+  const navigate = useNavigate();
   const name = sessionStorage.getItem('name') ?? 'Anonymous';
+  const memberId = sessionStorage.getItem('memberId');
 
   const [todo, setTodo] = useState('');
   const [todos, setTodos] = useState([]);
@@ -30,7 +33,7 @@ export default function Home() {
 
   const fetchData = useCallback(
     async function () {
-      const res = await getTasks();
+      const res = await getTasks(memberId);
       /** @type {Todo[]} */
       const data = [...res.data];
 
@@ -41,12 +44,16 @@ export default function Home() {
 
       setTodos(data);
     },
-    [order],
+    [order, memberId],
   );
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    if (memberId) {
+      fetchData();
+    } else {
+      navigate('/');
+    }
+  }, [fetchData, memberId, navigate]);
 
   /* ********* SELECTBOX ********** */
 
@@ -102,7 +109,7 @@ export default function Home() {
     }
 
     // save to server
-    await postTask({ contents: todo });
+    await postTask({ contents: todo, memberId });
     // reload
     fetchData();
     // show toast
@@ -126,11 +133,21 @@ export default function Home() {
     }
   }
 
+  function handleLogout() {
+    sessionStorage.removeItem('name');
+    sessionStorage.removeItem('memberId');
+    navigate('/');
+  }
+
   /* ********** RENDER ********** */
 
   return (
     <>
-      <Topbar />
+      <Topbar>
+        <button type="button" className={styles.logout} onClick={handleLogout}>
+          Logout
+        </button>
+      </Topbar>
       <main className={styles['home-page']}>
         <section className={styles.top}>
           <div className={styles.container}>
