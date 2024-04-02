@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import Button from '@/component/ui/Button';
 import Dropdown from '@/component/ui/Dropdown';
 import TextField from '@/component/ui/TextField';
 import Toast from '@/component/ui/Toast';
 import { deleteTask, deleteTasks, getTasks, patchTask, postTask } from '@/lib/service';
-import { useInput } from '@/lib/useInput';
 import { useToast } from '@/lib/useToast';
 import { getGreeting, getTodoCount } from '@/lib/util';
 
@@ -24,27 +23,30 @@ const options = [
 export default function Home() {
   const name = sessionStorage.getItem('name') ?? 'Anonymous';
 
-  const [todoProps, setTodo] = useInput('', handleSave);
+  const [todo, setTodo] = useState('');
   const [todos, setTodos] = useState([]);
   const [order, setOrder] = useState(options[0].value);
   const { showToast } = useToast();
 
+  const fetchData = useCallback(
+    async function () {
+      const res = await getTasks();
+      /** @type {Todo[]} */
+      const data = [...res.data];
+
+      // apply sort order
+      if (order === 'Latest') {
+        data.sort((a, b) => b.createdDate - a.createdDate);
+      }
+
+      setTodos(data);
+    },
+    [order],
+  );
+
   useEffect(() => {
     fetchData();
-  }, []);
-
-  async function fetchData() {
-    const res = await getTasks();
-    /** @type {Todo[]} */
-    const data = [...res.data];
-
-    // apply sort order
-    if (order === 'Latest') {
-      data.sort((a, b) => b.createdDate - a.createdDate);
-    }
-
-    setTodos(data);
-  }
+  }, [fetchData]);
 
   /* ********* SELECTBOX ********** */
 
@@ -95,7 +97,6 @@ export default function Home() {
   }
 
   async function handleSave() {
-    const { value: todo } = todoProps;
     if (!todo) {
       return;
     }
@@ -142,7 +143,7 @@ export default function Home() {
             <p>task(s) today!</p>
           </div>
           <div className={styles.top__input}>
-            <TextField placeholder="Enter your task" {...todoProps} onSend={handleSave} />
+            <TextField placeholder="Enter your task" value={todo} onUpdate={setTodo} onSubmit={handleSave} />
           </div>
         </div>
       </section>

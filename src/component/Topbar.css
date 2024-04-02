@@ -1,5 +1,5 @@
 .topbar {
-  height: 48px;
+  height: var(--topbar-height);
   width: 100%;
 
   background-color: #6c77ac;

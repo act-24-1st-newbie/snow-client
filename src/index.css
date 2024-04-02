@@ -6,6 +6,8 @@
   --raw-primary-color: 42 130 240;
 
   --font-family: Inter, 'Noto Sans KR', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --container-width: 960px;
+  --topbar-height: 48px;
 
   /* root property */
   font-family: var(--font-family);

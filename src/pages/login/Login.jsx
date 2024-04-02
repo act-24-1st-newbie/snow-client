@@ -1,17 +1,15 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import TextField from '@/component/ui/TextField';
-import { useInput } from '@/lib/useInput';
 
 import styles from './Login.module.css';
 
 export default function Login() {
-  const [nameProps] = useInput('', handleSubmit);
+  const [name, setName] = useState('');
   const navigate = useNavigate();
 
   function handleSubmit() {
-    const { value: name } = nameProps;
-
     if (!name) {
       return;
     }
@@ -29,7 +27,7 @@ export default function Login() {
       </div>
       <div className={styles['login']}>
         <h1>What is your name?</h1>
-        <TextField {...nameProps} onSend={handleSubmit} />
+        <TextField value={name} onUpdate={setName} onSubmit={handleSubmit} />
       </div>
     </main>
   );

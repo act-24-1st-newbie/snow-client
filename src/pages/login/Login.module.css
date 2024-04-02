@@ -1,5 +1,5 @@
 .login-page {
-  width: 1024px;
+  width: var(--container-width);
   margin: auto;
 }
 

@@ -25,17 +25,11 @@ export default function Test() {
   const [selected, setSelected] = useState(options[0].value);
   const { showToast } = useToast();
 
-  function handleChange(e) {
-    setText(e.target.value);
+  function handleUpdate(value) {
+    setText(value);
   }
 
-  function handleKeyUp(e) {
-    if (e.key === 'Enter') {
-      handleSend();
-    }
-  }
-
-  function handleSend() {
+  function handleSubmit() {
     alert(text);
   }
 
@@ -46,18 +40,18 @@ export default function Test() {
   return (
     <main className="test-page" style={style}>
       <div style={{ width: '300px' }}>
-        <TextField />
+        <TextField type="text" placeholder="Text test" value="" onUpdate={() => {}} />
       </div>
       <div style={{ width: '300px' }}>
-        <TextField placeholder="Input Here..." />
+        <TextField type="email" placeholder="Email test" value="" onUpdate={() => {}} />
       </div>
       <div style={{ width: '300px' }}>
         <TextField
+          type="text"
           placeholder="Input Here..."
           value={text}
-          onKeyUp={handleKeyUp}
-          onChange={handleChange}
-          onSend={handleSend}
+          onUpdate={handleUpdate}
+          onSubmit={handleSubmit}
           hideBorder
         />
       </div>

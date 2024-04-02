@@ -32,6 +32,9 @@
     &:focus {
       border-bottom-color: var(--primary-color);
     }
+    &.textfield__input--error {
+      border-bottom-color: #D15050;
+    }
   }
 }
 
@@ -59,4 +62,30 @@
   width: 24px;
   height: 24px;
   border: none;
+}
+
+.textfield__message {
+  color: #D15050;
+  font-size: 0.75rem;
+  visibility: hidden;
+}
+
+.textfield__message--visible {
+  visibility: visible;
+}
+
+.textfield__check {
+  appearance: none;
+  padding: 0 12px;
+  height: 32px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.6);
+
+  &:hover:not(:disabled) {
+    background-color: rgba(0, 0, 0, 0.08);
+    color: #000000;
+  }
 }

@@ -1,5 +1,5 @@
 .home-page {
-  height: calc(100vh - 48px);
+  height: calc(100vh - var(--topbar-height));
 
   display: flex;
   flex-direction: column;
@@ -7,7 +7,7 @@
 }
 
 .container {
-  width: 1024px;
+  width: var(--container-width);
   margin: auto;
 }
 
