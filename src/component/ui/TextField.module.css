@@ -1,3 +1,7 @@
+.outerTextField {
+  width: 100%;
+}
+
 .textfield {
   --border-color: #cccccc;
 
@@ -106,4 +110,8 @@
     background-color: rgba(0, 0, 0, 0.08);
     color: #000000;
   }
+}
+
+.messageHide {
+  display: none;
 }

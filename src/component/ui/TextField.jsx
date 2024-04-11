@@ -96,7 +96,7 @@ const TextField = forwardRef(
     }
 
     return (
-      <div>
+      <div className={styles.outerTextField}>
         <div className={styles.textfield}>
           <div className={styles.textfield__wrap}>
             <input
@@ -133,6 +133,7 @@ const TextField = forwardRef(
         </div>
         <div
           className={cn(styles.textfield__message, {
+            [styles.messageHide]: status === 3,
             [styles['textfield__message--error']]: status === 2,
             [styles['textfield__message--valid']]: status === 1,
           })}
