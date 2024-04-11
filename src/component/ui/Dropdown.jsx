@@ -83,7 +83,7 @@ function Dropdown({ value, options, onChange }) {
 
 const Option = PropTypes.shape({
   title: PropTypes.string,
-  value: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 });
 
 Dropdown.propTypes = {

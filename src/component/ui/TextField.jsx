@@ -6,8 +6,6 @@ import PropTypes from 'prop-types';
 import styles from './TextField.module.css';
 import chk from '/btn_check.svg';
 import del from '/ic_delete.svg';
-import hov from '/ic_send_hov.svg';
-import nor from '/ic_send_nor.svg';
 
 /**
  * @typedef TextFieldProps
@@ -116,19 +114,16 @@ const TextField = forwardRef(
             <input
               type="image"
               src={del}
-              className={cn(styles.textfield__clear, { [styles['textfield__clear--show']]: inner })}
+              className={cn(styles.textfield__clear)}
               onClick={handleClearClick}
+              data-show={!!inner}
             />
           </div>
           {type === 'text' ? (
             !hideButton && (
-              <input
-                type="image"
-                className={styles.textfield__send}
-                src={!inner ? nor : hov}
-                onClick={handleClick}
-                value={'\u200B'}
-              />
+              <button type="image" className={styles.textfield__send} onClick={handleClick} disabled={!inner}>
+                {'\u200B'}
+              </button>
             )
           ) : (
             <button type="button" className={styles.textfield__check} onClick={handleClick}>

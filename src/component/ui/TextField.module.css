@@ -50,10 +50,10 @@
   margin-bottom: auto;
 
   visibility: hidden;
-}
 
-.textfield__clear--show {
-  visibility: visible;
+  &[data-show=true] {
+    visibility: visible;
+  }
 }
 
 .textfield__send {
@@ -62,6 +62,17 @@
   width: 24px;
   height: 24px;
   border: none;
+ 
+  background-image: url('/ic_send_hov.svg');
+  background-color: transparent;
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background-image: url('/ic_send_nor.svg');
+  }
 }
 
 .textfield__message {
