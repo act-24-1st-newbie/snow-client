@@ -6,6 +6,19 @@ import styles from './Dropdown.module.css';
 import down from '/ic_arrow_down.svg';
 import up from '/ic_arrow_up.svg';
 
+/**
+ * @typedef DropdownProps
+ * @prop {string|number=} value
+ * @prop {{title: string; value?: string|number}[]} options
+ * @prop {(value?: string) => void} onChange
+ */
+
+/**
+ * Dropdown component
+ * @component
+ * @param {DropdownProps} param0
+ * @returns
+ */
 function Dropdown({ value, options, onChange }) {
   const [inner, setInner] = useState(value);
   const [isOpen, setOpen] = useState(false);
@@ -37,7 +50,7 @@ function Dropdown({ value, options, onChange }) {
 
   /**
    *
-   * @param {React.MouseEvent<'button'>} e
+   * @param {React.MouseEvent<HTMLButtonElement>} e
    * @param {string|number=} v
    */
   function handleOptionClick(e, v) {
@@ -68,11 +81,14 @@ function Dropdown({ value, options, onChange }) {
   );
 }
 
+const Option = PropTypes.shape({
+  title: PropTypes.string,
+  value: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
+});
+
 Dropdown.propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  options: PropTypes.arrayOf(
-    PropTypes.shape({ title: PropTypes.string, value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]) }),
-  ),
+  options: PropTypes.arrayOf(Option),
   onChange: PropTypes.func,
 };
 

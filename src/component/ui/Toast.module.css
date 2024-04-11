@@ -1,5 +1,5 @@
 .toastWrap {
-  position: absolute;
+  position: fixed;
   bottom: 40px;
   width: 100%;
 

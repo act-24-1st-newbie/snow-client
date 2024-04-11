@@ -4,10 +4,13 @@ import PropTypes from 'prop-types';
 import styles from './Button.module.css';
 
 /**
+ * @typedef ButtonProps
+ * @property {'primary'|'secondary'|'link'} variants
+ */
+
+/**
  * Button Component
- * @param {{
- *   variants?: 'primary'|'secondary'|'link',
- * } & React.ComponentPropsWithoutRef<'button'>} param0
+ * @param {ButtonProps & React.ComponentProps<'button'>} param0
  * @returns
  */
 function Button({ variants, className, children, ...rest }) {

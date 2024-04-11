@@ -10,6 +10,17 @@ import hov from '/ic_send_hov.svg';
 import nor from '/ic_send_nor.svg';
 
 /**
+ * @typedef TextFieldProps
+ * @prop {'text'|'email'=} type
+ * @prop {boolean=} hideBorder
+ * @prop {boolean=} hideButton
+ * @prop {number=} status
+ * @prop {string=} statusMsg
+ * @prop {(value?: string) => void} onUpdate
+ * @prop {() => void} onSubmit
+ */
+
+/**
  * Validate Function
  * @param {'text'|'email} type
  * @param {string} str
@@ -31,15 +42,9 @@ function _validate(type, str) {
  */
 const TextField = forwardRef(
   /**
-   * @param {{
-   *  type: 'text'|'email',
-   *  hideBorder?: boolean,
-   *  hideButton?: boolean,
-   *  status?: number,
-   *  statusMsg?: string,
-   *  onUpdate: (value?: string) => {},
-   *  onSubmit: (isValid?: boolean) => {},
-   * } & React.ComponentPropsWithRef<'input'>} param0
+   * Component
+   * @param {TextFieldProps & React.ComponentPropsWithoutRef<'input'>}
+   * @param {React.ForwardedRef<HTMLInputElement>} ref
    * @returns
    */
   ({ type, value, hideBorder, hideButton, status, statusMsg, onUpdate, onSubmit, ...rest }, ref) => {

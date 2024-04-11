@@ -20,6 +20,7 @@ export default function Toast() {
           <span>{toast.message}</span>
           <input
             type="image"
+            alt="close"
             src={closeImg}
             className={styles.toast__close}
             onClick={() => handleCloseClick(toast.id)}

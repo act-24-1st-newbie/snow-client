@@ -17,7 +17,7 @@ import styles from './TodoItem.module.css';
  *  item: Todo,
  *  isEditing: boolean,
  *  onClick: React.MouseEventHandler<HTMLButtonElement>
- *  onUpdate: (value) => {}
+ *  onUpdate: (value) => void
  *  onDoneChange: React.ChangeEventHandler<HTMLInputElement>
  *  onDelete: React.MouseEventHandler<HTMLButtonElement>
  * }} param0
@@ -27,17 +27,17 @@ function TodoItem({ item, isEditing, onClick, onUpdate, onDoneChange, onDelete }
   const [contentsProps, setContents] = useInput(contents, handleUpdate);
   const tfRef = useRef(null);
 
-  useEffect(() => {
-    if (isEditing) {
-      setContents(contents);
-    }
-  }, [setContents, contents, isEditing]);
-
   function handleUpdate() {
     if (contentsProps.value) {
       onUpdate?.(contentsProps.value);
     }
   }
+
+  useEffect(() => {
+    if (isEditing) {
+      setContents(contents);
+    }
+  }, [setContents, contents, isEditing]);
 
   useEffect(() => {
     if (isEditing) {

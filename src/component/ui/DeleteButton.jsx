@@ -2,7 +2,7 @@ import styles from './DeleteButton.module.css';
 
 /**
  * DeleteButton Component
- * @param {{} & React.ComponentPropsWithoutRef<'button'>} props
+ * @param {React.ComponentPropsWithoutRef<'button'>} props
  */
 function DeleteButton(props) {
   return (
