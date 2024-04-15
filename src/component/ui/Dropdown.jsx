@@ -22,8 +22,11 @@ import up from '/ic_arrow_up.svg';
 function Dropdown({ value, options, onChange }) {
   const [inner, setInner] = useState(value);
   const [isOpen, setOpen] = useState(false);
+
+  /** @type {React.MutableRefObject<HTMLDivElement>} */
   const selBox = useRef(null);
 
+  /** @param {React.MouseEvent<HTMLDivElement>} e */
   function handleClick(e) {
     e.stopPropagation();
     setOpen(prev => !prev);
@@ -31,8 +34,9 @@ function Dropdown({ value, options, onChange }) {
 
   /* for other click */
   useEffect(() => {
+    /** @param {MouseEvent} e */
     function mouseClickHandler(e) {
-      if (selBox.current != e.target) {
+      if (!selBox.current.contains(e.target)) {
         setOpen(false);
       }
     }
@@ -61,23 +65,21 @@ function Dropdown({ value, options, onChange }) {
   }
 
   return (
-    <>
-      <div className={styles.dropdown}>
-        <div className={styles.dropdown__selected} onClick={handleClick} ref={selBox}>
-          <span onClick={handleClick}>{inner ?? ''}</span>
-          <img src={isOpen ? up : down} onClick={handleClick} />
-        </div>
-        {isOpen && (
-          <div className={styles.dropdown__over}>
-            {options?.map(option => (
-              <div key={option.value} onClick={e => handleOptionClick(e, option.value)}>
-                {option.title}
-              </div>
-            ))}
-          </div>
-        )}
+    <div className={styles.dropdown}>
+      <div className={styles.dropdown__selected} onClick={handleClick} ref={selBox}>
+        <span onClick={handleClick}>{inner ?? ''}</span>
+        <img src={isOpen ? up : down} onClick={handleClick} />
       </div>
-    </>
+      {isOpen && (
+        <ul className={styles.dropdown__over}>
+          {options?.map(option => (
+            <li key={option.value} onClick={e => handleOptionClick(e, option.value)}>
+              {option.title}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 

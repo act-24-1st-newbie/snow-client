@@ -26,8 +26,11 @@
   background-color: #ffffff;
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 
-  div {
+  li {
     height: 40px;
 
     padding: 0 16px;
