@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Topbar from '@/component/Topbar';
@@ -31,6 +31,9 @@ export default function Home() {
   const [order, setOrder] = useState(options[0].value);
   const { showToast } = useToast();
 
+  /** @type {React.MutableRefObject<HTMLUListElement>} */
+  const todoUlRef = useRef(null);
+
   const fetchData = useCallback(
     async function () {
       const res = await getTasks(memberId);
@@ -46,6 +49,18 @@ export default function Home() {
     },
     [order, memberId],
   );
+
+  useEffect(() => {
+    /** @param {MouseEvent} e */
+    function mouseEventHandler(e) {
+      if (!todoUlRef.current.contains(e.target)) {
+        setTodos(prev => prev.map(item => ({ ...item, isEditing: false })));
+      }
+    }
+
+    addEventListener('click', mouseEventHandler);
+    return () => removeEventListener('click', mouseEventHandler);
+  }, []);
 
   useEffect(() => {
     if (memberId) {
@@ -183,13 +198,16 @@ export default function Home() {
                   Clear All
                 </Button>
               </div>
-              <ul className={styles.todo__list}>
+              <ul className={styles.todo__list} ref={todoUlRef}>
                 {todos.map(item => (
                   <TodoItem
                     key={item.id}
                     item={item}
                     isEditing={item.isEditing}
-                    onClick={() => handleItemClick(item.id, item.isDone)}
+                    onClick={e => {
+                      e.stopPropagation();
+                      handleItemClick(item.id, item.isDone);
+                    }}
                     onUpdate={v => handleItemUpdate(item.id, v)}
                     onDoneChange={e => handleDoneChange(item.id, e)}
                     onDelete={() => handleDelete(item.id)}
