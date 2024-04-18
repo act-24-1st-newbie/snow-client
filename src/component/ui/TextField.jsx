@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
 
 import cn from 'classnames';
 import PropTypes from 'prop-types';
@@ -51,11 +51,6 @@ const TextField = forwardRef(
 
     /** @type {React.MutableRefObject<null|HTMLInputElement>} */
     const inputRef = useRef(null);
-    const [inner, setInner] = useState(value);
-
-    useEffect(() => {
-      setInner(value);
-    }, [value]);
 
     useImperativeHandle(
       ref,
@@ -65,22 +60,20 @@ const TextField = forwardRef(
             inputRef.current.focus();
           },
           validate() {
-            return _validate(type, inner);
+            return _validate(type, value);
           },
         };
       },
-      [type, inner],
+      [type, value],
     );
 
     /* 글자가 변경되면 상위 컴포넌트로 전달 */
     function handleChange(e) {
-      setInner(e.target.value);
       onUpdate?.(e.target.value);
     }
 
     /* Clear버튼 클릭 이벤트 */
     function handleClearClick() {
-      setInner('');
       onUpdate?.('');
     }
 
@@ -105,7 +98,7 @@ const TextField = forwardRef(
                 [styles['textfield__input--border']]: !hideBorder,
                 [styles['textfield__input--error']]: status === 2,
               })}
-              value={inner}
+              value={value}
               onChange={handleChange}
               onKeyUp={handleKeyUp}
               ref={inputRef}
@@ -116,12 +109,12 @@ const TextField = forwardRef(
               src={del}
               className={cn(styles.textfield__clear)}
               onClick={handleClearClick}
-              data-show={!!inner}
+              data-show={!!value}
             />
           </div>
           {type === 'text' ? (
             !hideButton && (
-              <button type="image" className={styles.textfield__send} onClick={handleClick} disabled={!inner}>
+              <button type="image" className={styles.textfield__send} onClick={handleClick} disabled={!value}>
                 {'\u200B'}
               </button>
             )

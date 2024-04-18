@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import cn from 'classnames';
 import { format } from 'date-fns';
@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import Checkbox from '@/component/ui/Checkbox';
 import DeleteButton from '@/component/ui/DeleteButton';
 import TextField from '@/component/ui/TextField';
-import { useInput } from '@/lib/useInput';
 
 import styles from './TodoItem.module.css';
 
@@ -24,31 +23,36 @@ import styles from './TodoItem.module.css';
  */
 function TodoItem({ item, isEditing, onClick, onUpdate, onDoneChange, onDelete }) {
   const { contents, isDone, createdDate, modifiedDate } = item;
-  const [contentsProps, setContents] = useInput(contents, handleUpdate);
+  const [text, setText] = useState(contents);
   const tfRef = useRef(null);
 
-  function handleUpdate() {
-    if (contentsProps.value) {
-      onUpdate?.(contentsProps.value);
-    }
+  function handleUpdate(v) {
+    setText(v);
+  }
+
+  function handleSubmit() {
+    onUpdate(text);
   }
 
   useEffect(() => {
     if (isEditing) {
-      setContents(contents);
-    }
-  }, [setContents, contents, isEditing]);
-
-  useEffect(() => {
-    if (isEditing) {
       tfRef?.current?.focus();
+      setText(contents);
     }
-  }, [isEditing]);
+  }, [setText, contents, isEditing]);
 
   if (isEditing) {
     return (
       <li className={cn(styles.todo__item, styles['todo__item--active'])}>
-        <TextField type="text" hideBorder {...contentsProps} onSubmit={handleUpdate} status={3} ref={tfRef} />
+        <TextField
+          type="text"
+          hideBorder
+          value={text}
+          onUpdate={handleUpdate}
+          onSubmit={handleSubmit}
+          status={3}
+          ref={tfRef}
+        />
       </li>
     );
   }

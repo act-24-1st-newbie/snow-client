@@ -19,7 +19,6 @@ import up from '/ic_arrow_up.svg';
  * @constructor
  */
 function Dropdown({ value, options, onChange }) {
-  const [inner, setInner] = useState(value);
   const [isOpen, setOpen] = useState(false);
 
   /** @type {React.MutableRefObject<HTMLDivElement>} */
@@ -47,10 +46,6 @@ function Dropdown({ value, options, onChange }) {
     };
   }, []);
 
-  useEffect(() => {
-    setInner(value);
-  }, [setInner, value]);
-
   /**
    *
    * @param {React.MouseEvent<HTMLLIElement>} e
@@ -59,14 +54,13 @@ function Dropdown({ value, options, onChange }) {
   function handleOptionClick(e, v) {
     e.stopPropagation();
     onChange?.(v);
-    setInner(v);
     setOpen(false);
   }
 
   return (
     <div className={styles.dropdown}>
       <div className={styles.dropdown__selected} onClick={handleClick} ref={selBox}>
-        <span onClick={handleClick}>{inner ?? ''}</span>
+        <span onClick={handleClick}>{value ?? ''}</span>
         <img src={isOpen ? up : down} onClick={handleClick} />
       </div>
       {isOpen && (
