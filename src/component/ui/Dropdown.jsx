@@ -15,9 +15,8 @@ import up from '/ic_arrow_up.svg';
 
 /**
  * Dropdown component
- * @component
  * @param {DropdownProps} param0
- * @returns
+ * @constructor
  */
 function Dropdown({ value, options, onChange }) {
   const [inner, setInner] = useState(value);
@@ -54,7 +53,7 @@ function Dropdown({ value, options, onChange }) {
 
   /**
    *
-   * @param {React.MouseEvent<HTMLButtonElement>} e
+   * @param {React.MouseEvent<HTMLLIElement>} e
    * @param {string|number=} v
    */
   function handleOptionClick(e, v) {
