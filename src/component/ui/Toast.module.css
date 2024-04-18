@@ -1,0 +1,40 @@
+.toastWrap {
+  position: fixed;
+  bottom: 40px;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+
+  visibility: hidden;
+}
+
+.toastWrap--show {
+  visibility: visible;
+}
+
+.toast {
+  width: 600px;
+  height: 56px;
+
+  padding: 0 20px;
+
+  border: none;
+  border-radius: 4px;
+  background-color: black;
+  color: #ffffff;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+
+
+.toast__close {
+  width: 24px;
+  height: 24px;
+}

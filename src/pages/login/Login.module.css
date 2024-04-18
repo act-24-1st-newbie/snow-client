@@ -1,0 +1,43 @@
+.login-page {
+  width: var(--container-width);
+  margin: auto;
+}
+
+.welcome {
+  margin-top: 60px;
+
+  p {
+    margin: 0;
+
+    font-size: 1.5rem;
+
+    color: #2c3e50;
+  }
+}
+
+.login {
+  width: 100%;
+  margin-top: 24px;
+
+  h1 {
+    margin: 16px 0;
+    font-size: 3rem;
+  }
+}
+
+.signup {
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  
+  padding: 0 12px;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  color: #ffffff;
+
+  font-size: 0.875rem;
+  &:visited {
+    color: #ffffff;
+  }
+}

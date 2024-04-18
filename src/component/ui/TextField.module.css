@@ -1,0 +1,117 @@
+.outerTextField {
+  width: 100%;
+}
+
+.textfield {
+  --border-color: #cccccc;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+}
+
+.textfield__wrap {
+  flex-grow: 1;
+  position: relative;
+}
+
+.textfield__input {
+  outline: none;
+
+  border: 1px solid transparent;
+
+  font-family: var(--font-family);
+  font-size: 1rem;
+  line-height: 1.5;
+
+  padding: 4px 24px 4px 0;
+  width: 100%;
+
+  &.textfield__input--border {
+    border-bottom: 1px solid var(--border-color);
+    &:focus {
+      border-bottom-color: var(--primary-color);
+    }
+    &.textfield__input--error {
+      border-bottom-color: #D15050;
+    }
+  }
+}
+
+.textfield__clear {
+  z-index: 1;
+  position: absolute;
+  
+  top: 0;
+  bottom: 0;
+  right: 0;
+
+  margin-top: auto;
+  margin-bottom: auto;
+
+  visibility: hidden;
+
+  &[data-show=true] {
+    visibility: visible;
+  }
+}
+
+.textfield__send {
+  appearance: none;
+
+  width: 24px;
+  height: 24px;
+  border: none;
+ 
+  background-image: url('/ic_send_hov.svg');
+  background-color: transparent;
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background-image: url('/ic_send_nor.svg');
+  }
+}
+
+.textfield__message {
+  font-size: 0.75rem;
+  visibility: hidden;
+
+  &.textfield__message--error {
+    color: #D15050;
+    visibility: visible;
+  }
+  &.textfield__message--valid {
+    color: var(--primary-color);
+    visibility: visible;
+  }
+}
+
+.textfield__check {
+  appearance: none;
+  padding: 0 12px;
+  height: 32px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  
+  display: flex;
+  align-items: center;
+
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.6);
+
+  &:hover:not(:disabled) {
+    background-color: rgba(0, 0, 0, 0.08);
+    color: #000000;
+  }
+}
+
+.messageHide {
+  display: none;
+}
